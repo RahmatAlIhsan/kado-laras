@@ -4,49 +4,73 @@
   <meta charset="UTF-8">
   <title>Pesan Buat Kedepannya</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
       font-family: 'Quicksand', sans-serif;
       color: #6a1b9a;
-      background: linear-gradient(270deg, #fce4ec, #e1bee7, #f3e5f5);
+      background: linear-gradient(120deg, #ffe6f0 0%, #fffde4 60%, #b3e5fc 100%);
       background-size: 600% 600%;
       animation: gradientMove 20s ease infinite;
       overflow-x: hidden;
     }
-
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
+    h1, .judul {
+      font-family: 'Pacifico', cursive;
+      font-size: 2em;
+      color: #ffb300;
+      margin-bottom: 36px;
+      margin-top: 40px;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #fff6, 0 1px 0 #fff;
+      animation: fadeInDown 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+      text-align: center;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
     .container {
       padding: 40px 25px;
       max-width: 800px;
       margin: auto;
+      background: rgba(255,255,255,0.7);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #e91e6322;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      animation: fadeIn 1.5s;
     }
-
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     .typewriter-text {
-      font-size: 1.4em;
+      font-size: 1.35em;
       line-height: 2em;
       white-space: pre-wrap;
       text-align: center;
+      color: #6a1b9a;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px #fff6;
+      min-height: 200px;
+      transition: font-size 0.2s;
     }
-
     @media screen and (max-width: 600px) {
-      .typewriter-text {
-        font-size: 1.15em;
-        padding: 0 10px;
-      }
+      h1, .judul { font-size: 1.2em; margin-top: 20px; }
+      .container { padding: 18px 4vw; margin-top: 10px; }
+      .typewriter-text { font-size: 1em; min-height: 120px; }
+      #overlay { font-size: 1em; padding: 10px; }
     }
-
     #overlay {
       position: fixed;
       top: 0; left: 0;
@@ -63,7 +87,6 @@
       font-size: 1.3em;
       flex-direction: column;
     }
-
     #overlay button {
       margin-top: 25px;
       padding: 12px 28px;
@@ -76,7 +99,6 @@
       font-weight: bold;
       transition: background 0.3s;
     }
-
     #overlay button:hover {
       background-color: #f8bbd0;
     }
@@ -95,6 +117,7 @@
   <!-- Overlay End -->
 
   <div class="container">
+    <h1 class="judul">Pesan Buat Kedepannya</h1>
     <div id="typewriter" class="typewriter-text"></div>
   </div>
 
@@ -103,7 +126,7 @@
 
   <script>
     const text = [
-      "Aku nggak tau harus mulai dari mana, tapi aku cuma pengen cerita... pelan-pelan, jujur, dan apa adanya.",
+      " hii laras dengerin bentar yaa Aku nggak tau harus mulai dari mana, tapi aku cuma pengen cerita... pelan-pelan, jujur, dan apa adanya.",
       "Kita udah sejauh ini, jalanin banyak hal... dari yang receh sampai yang paling nyakitin.",
       "Dan jujur... aku kadang nggak percaya kalau kita bisa sejauh ini, walau jalannya gak selalu indah.",
       "Aku sadar hubungan ini gak sempurna. Aku juga gak sempurna. Tapi aku selalu berusaha buat jadi yang terbaik sebisaku.",
@@ -146,12 +169,12 @@
           typewriter.textContent += text[sentence].charAt(charIndex);
           charIndex++;
           window.scrollTo(0, document.body.scrollHeight);
-          setTimeout(type, 60); // lebih lambat
+          setTimeout(type, 90); // lebih lambat
         } else {
           typewriter.textContent += "\n\n";
           sentence++;
           charIndex = 0;
-          setTimeout(type, 1100); // jeda antar kalimat
+          setTimeout(type, 1500); // jeda antar kalimat lebih lama
         }
       }
     }

@@ -4,19 +4,24 @@
   <meta charset="UTF-8">
   <title>🎥 Ucapan Untuk Kamu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff0f5;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0 0%, #fffde4 60%, #b3e5fc 100%);
       text-align: center;
-      padding: 30px 20px;
+      padding: 30px 10px;
       margin: 0;
+      min-height: 100vh;
     }
 
     h1 {
       color: #e91e63;
       margin-bottom: 15px;
-      font-size: 1.8em;
+      font-size: 2em;
+      font-family: 'Pacifico', cursive;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #fff6, 0 1px 0 #fff;
     }
 
     p {
@@ -40,28 +45,142 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
-    @media screen and (max-width: 500px) {
+    #scroll-container {
+      max-width: 600px;
+      margin: 0 auto 28px auto;
+      position: relative;
+      overflow: hidden;
+      height: 250px;
+      background: linear-gradient(120deg, #fffde4 60%, #ffe6f0 100%);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #e91e6322;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #scroll-text {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      color: #b4005a;
+      font-size: 1.18em;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+      font-weight: 600;
+      line-height: 1.8em;
+      padding: 18px 16px 14px 16px;
+      text-align: center;
+      text-shadow: 0 2px 8px #fff6;
+      letter-spacing: 0.5px;
+    }
+
+    #scroll-text p {
+      margin-bottom: 14px;
+    }
+
+    #mulaiBtn {
+      display: none;
+      margin: 32px auto 18px auto;
+      padding: 14px 36px;
+      font-size: 1.15em;
+      border-radius: 30px;
+      background: linear-gradient(90deg,#ffb300 60%,#4fc3f7 100%);
+      color: #fff;
+      border: none;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+      font-weight: bold;
+      box-shadow: 0 4px 16px #ffecb355;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #mulaiBtn:hover {
+      background: linear-gradient(90deg, #ffd600 60%, #29b6f6 100%);
+      transform: scale(1.07) rotate(-2deg);
+      box-shadow: 0 8px 24px #b3e5fc99;
+    }
+
+    @media screen and (max-width: 600px) {
       h1 {
-        font-size: 1.4em;
+        font-size: 1.25em;
       }
 
-      p {
+      #scroll-container {
+        height: 170px;
+      }
+
+      #scroll-text {
         font-size: 1em;
+        padding: 10px 4vw;
+      }
+
+      #mulaiBtn {
+        font-size: 1em;
+        padding: 12px 18px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1> Video Ucapan Sederhana Buat Kamu</h1>
-  <p>Semoga kamu suka yaa... Aku buat ini khusus untuk kamu </p>
 
-  <div class="video-container">
+  <div id="scroll-container">
+    <div id="scroll-text">
+      <p>Hai kamu...</p>
+      <p>Sebelumnya maaf ya, kalau videonya terkesan sedih...</p>
+      <p>Aku cuma pengen jujur dari hati...</p>
+      <p>Maaf juga kalau ada kata-kata yang kurang baik atau bikin kamu nggak nyaman.</p>
+      <p>Aku nggak pernah niat buat nyakitin kamu... serius.</p>
+      <p>Aku cuma pengen kamu tahu, bahwa meskipun keadaan nggak seperti dulu... kamu tetap berarti buat aku.</p>
+      <p>Mungkin aku nggak bisa ngasih banyak, tapi video ini aku buat dari hati.</p>
+      <p>Terima kasih sudah pernah jadi bagian dari hari-hari aku.</p>
+      <p>Semoga waktu bisa menyembuhkan... dan semoga kamu selalu bahagia laras hehe.</p>
+    </div>
+  </div>
+  <button id="mulaiBtn">Mulai Video</button>
+  <div class="video-container" id="videoContainer" style="display:none;">
     <video controls poster="thumbnail.jpg">
       <source src="videoku.mp4" type="video/mp4">
       Maaf, browser kamu tidak mendukung pemutaran video.
     </video>
   </div>
+
+  <script>
+    const scrollContainer = document.getElementById('scroll-container');
+    const scrollText = document.getElementById('scroll-text');
+    const mulaiBtn = document.getElementById('mulaiBtn');
+    const videoContainer = document.getElementById('videoContainer');
+
+    function animateScrollText() {
+      let containerHeight = scrollContainer.offsetHeight;
+      let textHeight = scrollText.offsetHeight;
+      let pos = containerHeight;
+      scrollText.style.top = pos + 'px';
+      let duration = 22000; // 22 detik, lebih lambat
+      let start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        let progress = (ts - start) / duration;
+        let current = containerHeight - (containerHeight + textHeight) * progress;
+        scrollText.style.top = current + 'px';
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          scrollText.style.top = -textHeight + 'px';
+          setTimeout(() => {
+            mulaiBtn.style.display = 'block';
+          }, 600);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    window.onload = animateScrollText;
+    mulaiBtn.onclick = function() {
+      scrollContainer.style.display = 'none';
+      mulaiBtn.style.display = 'none';
+      videoContainer.style.display = 'block';
+    };
+  </script>
 
 </body>
 </html>
