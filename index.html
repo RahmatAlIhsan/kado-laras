@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kado Ulang Tahun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #ffe6f0;
+      padding: 80px 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #d63384;
+    }
+
+    button {
+      padding: 12px 30px;
+      margin: 20px 10px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+
+    #response {
+      color: #ff0000;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+
+    #locked {
+      font-size: 1.3em;
+      color: #c2185b;
+      margin-top: 100px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="locked">
+    ⏳ Belum waktunya dibuka yaa... sabar dulu 😋<br><br>
+    Web ini akan terbuka tepat <strong>11 Juli 2025 pukul 00.00</strong>
+  </div>
+
+  <div id="main" class="hidden">
+    <h1>Haiii Larass 💖<br>Boleh minta waktunya sebentar?</h1>
+
+    <button onclick="yes()">Iyaa</button>
+    <button onclick="no()">Engga</button>
+
+    <p id="response"></p>
+  </div>
+
+  <script>
+    const now = new Date();
+    const target = new Date("2025-07-11T00:00:00"); // 11 Juli 2025 pukul 00:00
+
+    if (now >= target) {
+      document.getElementById("locked").style.display = "none";
+      document.getElementById("main").classList.remove("hidden");
+    }
+
+    function yes() {
+      window.location.href = "halaman2.html";
+    }
+
+    function no() {
+      document.getElementById("response").innerText = "Gaboleehh 😝 harus mauu... plis 💗";
+    }
+  </script>
+</body>
+</html>

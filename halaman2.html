@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hai Cantik</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #e0f7fa;
+      margin-top: 100px;
+      padding: 20px;
+    }
+    h1 {
+      color: #0077b6;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 1.1em;
+      border-radius: 10px;
+      background-color: #00b4d8;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #0077b6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Haii cantikk 💖</h1>
+  <p>Terima kasih udah klik “iyaa”<br> Sekarang kamu mau ikut aku ngga?</p>
+
+  <div class="buttons">
+    <button onclick="yes()">Mauu </button>
+    <button onclick="no()">Enggaa </button>
+  </div>
+
+  <script>
+    function yes() {
+      window.location.href = "halaman3.html"; // ganti sesuai halaman lanjutannya
+    }
+
+    function no() {
+      alert("Yakin nggak mau? Tapi aku tetep sayang kamu 🥺💔");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Mau Kemana Dulu Nih?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #ff1493;
+      margin-bottom: 40px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    button {
+      padding: 15px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #d63384;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 400px;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1.6em;
+      color: #d63384;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-content h2 {
+      color: #e91e63;
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+
+    .modal-content button {
+      margin-top: 25px;
+      background-color: #e91e63;
+      width: 100%;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      button {
+        font-size: 0.95em;
+        padding: 12px;
+      }
+
+      .modal-content {
+        margin: 30% auto;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mau kemana dulu nih, cantikk? 😘</h1>
+
+  <div class="menu">
+    <button onclick="goTo('malamini.html')">🌙 Pesan Buat Malam Ini</button>
+    <button onclick="goTo('kedepan.html')">💌 Pesan Buat Kamu Kedepannya</button>
+    <button onclick="showModal()">🎁 Halaman Terakhir</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="rulesModal" class="modal">
+    <div class="modal-content">
+      <h2>💌 Sebelum Lanjut...</h2>
+      <p>
+        1️⃣ Harus di tempat <b>sepi</b>, jangan ada suara yaa...<br><br>
+        2️⃣ Pakai <b>headset</b> biar kerasa lebih dekat 🎧<br><br>
+        3️⃣ Maafin aku ya... ini sederhana, tapi aku bikin dari hati aku sendiri 💖<br><br>
+        Semoga kamu sukaa 🥺
+      </p>
+      <button onclick="goTo('terakhir.html')">Aku Mau Lihat 🎁</button>
+    </div>
+  </div>
+
+  <script>
+    function goTo(page) {
+      window.location.href = page;
+    }
+
+    function showModal() {
+      document.getElementById("rulesModal").style.display = "block";
+    }
+
+    // Tutup modal jika klik di luar
+    window.onclick = function(event) {
+      const modal = document.getElementById("rulesModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>

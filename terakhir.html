@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Selamat Ulang Tahun Larass 🎂</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #fff0f5;
+      padding: 40px 20px;
+      transition: background-color 1s ease;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 1.5em;
+    }
+
+    .candle {
+      position: relative;
+      width: 30px;
+      height: 120px;
+      margin: 60px auto 20px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #6ec1ff,
+        #6ec1ff 10px,
+        #b3e5fc 10px,
+        #b3e5fc 20px
+      );
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .flame {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 36px;
+      background: radial-gradient(circle at 50% 30%, #ffeb3b, #ff9800);
+      border-radius: 50% 50% 50% 50%;
+      animation: flicker 0.3s infinite alternate;
+      box-shadow: 0 0 15px #ffa726;
+    }
+
+    @keyframes flicker {
+      0%   { transform: translateX(-50%) scale(1); }
+      100% { transform: translateX(-50%) scale(1.1); }
+    }
+
+    #message, #final-screen {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.1em;
+      color: #d63384;
+    }
+
+    #final-screen img {
+      max-width: 90%;
+      max-height: 300px;
+      border-radius: 16px;
+      margin: 10px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: opacity 1s ease-in-out;
+    }
+
+    .final-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #e91e63;
+    }
+
+    .final-caption {
+      font-size: 1.3em;
+      margin-top: 10px;
+      color: #c2185b;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="judul">Tiup lilinnya yuk, Larass 🎂🕯️</h1>
+
+  <div class="candle" id="candle">
+    <div class="flame" id="flame"></div>
+  </div>
+
+  <p id="message">Lilinnya padam 🥺<br>............. 💖</p>
+
+  <div id="final-screen">
+    <div class="final-title">Selamatt Ulang Tahun 🥳</div>
+    
+    <!-- Gambar Pertama -->
+    <img id="gambar1" src="img/laras.jpg" alt="Pelukan">
+    
+    <!-- Gambar Kedua (disembunyikan dulu) -->
+    <img id="gambar2" src="img/ketawa.jpg" class="hidden" alt="Pelukan Lagi">
+
+    <div class="final-caption" id="caption">
+      Orang yang paling cantikk di dunia inii 😍
+    </div>
+  </div>
+
+  <div id="slideshow" style="display:none; margin-top:20px;">
+    <div id="slide-title" style="font-size:1.5em;font-weight:bold;color:#e91e63;margin-bottom:10px;">Selamat Ulang Tahun 🥳</div>
+    <img id="slide-img" src="" alt="Slideshow" style="max-width:90%;max-height:300px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:opacity 1s ease-in-out;">
+    <div id="slide-caption" style="font-size:1.3em;color:#c2185b;margin-top:10px;min-height:1.5em;"></div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="ucapan" src="suaraku.mp3"></audio>
+  <audio id="lagu" src="selamat.mp3" loop></audio>
+
+  <script>
+    const flame = document.getElementById("flame");
+    const message = document.getElementById("message");
+    const ucapan = document.getElementById("ucapan");
+    const lagu = document.getElementById("lagu");
+    const candle = document.getElementById("candle");
+    const judul = document.getElementById("judul");
+    const final = document.getElementById("final-screen");
+
+    const gambar1 = document.getElementById("gambar1");
+    const gambar2 = document.getElementById("gambar2");
+    const caption = document.getElementById("caption");
+
+    const slides = [
+      { src: "img/laras.jpg", caption: "Orang Paling Cantik Dari 2021-2025 💖", duration: 12000 },
+      { src: "img/bagus0.jpg", caption: "NGAHH SELAMAT ULANG TAHUN YAAA 🥳", duration: 5000 },
+      { src: "img/bagus1.jpg", caption: "MAKASIH UDAH NEMENIN SEJAUH INI ❤️😂", duration: 5000 },
+      { src: "img/ketawa1.jpg", caption: "SELFIEEE DULU AHHH", duration: 5000 },
+      { src: "img/bagus2.jpg", caption: "IKUTT JAGA TOKOO", duration: 5000 },
+      { src: "img/ketawa2.jpg", caption: "TEKWANN MANA TEKWANN HEHE", duration: 5000 },
+      { src: "img/bagus3.jpg", caption: "Nongkrong Pinggir Jalan Dulu Ahhh", duration: 5000 },
+      { src: "img/ketawa3.jpg", caption: "AHH KELAMAAN NUNGGU FERDI INI Mauu jalannn", duration: 5000 },
+      { src: "img/haha.jpg", caption: "HAHAHAAA TERBAIKK KAMUUU 😆💕", duration: 5000 }
+    ];
+
+    async function listenToMic() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioContext = new AudioContext();
+        const mic = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+        mic.connect(analyser);
+        const data = new Uint8Array(analyser.frequencyBinCount);
+
+        function detectBlow() {
+          analyser.getByteFrequencyData(data);
+          const volume = data.reduce((a, b) => a + b, 0) / data.length;
+
+          if (volume > 50) {
+            flame.style.display = "none";
+            message.style.display = "block";
+            ucapan.play();
+
+            ucapan.onended = () => {
+              // Ganti ke layar akhir
+              candle.style.display = "none";
+              message.style.display = "none";
+              judul.style.display = "none";
+              final.style.display = "none";
+              document.body.style.backgroundColor = "#ffe4e1";
+              lagu.play();
+              startSlideshow();
+              // Setelah 10 detik, ganti ke gambar kedua (opsional, jika ingin tetap ada)
+              // setTimeout(() => {
+              //   gambar1.classList.add("hidden");
+              //   gambar2.classList.remove("hidden");
+              //   caption.textContent = "Makasih udah nemenin aku sampai sejauh ini ❤️";
+              // }, 10000);
+            };
+          } else {
+            requestAnimationFrame(detectBlow);
+          }
+        }
+
+        detectBlow();
+      } catch (err) {
+        alert("Aktifkan izin mikrofon untuk meniup lilin 🎙️");
+      }
+    }
+
+    function startSlideshow() {
+      const slideshow = document.getElementById("slideshow");
+      const slideImg = document.getElementById("slide-img");
+      const slideCaption = document.getElementById("slide-caption");
+      let i = 0;
+      slideshow.style.display = "block";
+      final.style.display = "none";
+      function showSlide(idx) {
+        const slide = slides[idx];
+        slideImg.style.opacity = 0;
+        setTimeout(() => {
+          slideImg.src = slide.src;
+          slideCaption.textContent = slide.caption;
+          slideImg.style.opacity = 1;
+        }, 400);
+        setTimeout(() => {
+          i++;
+          if (i < slides.length) {
+            showSlide(i);
+          } else {
+            // Setelah slide terakhir (haha.jpg), langsung akhiri slideshow
+            slideshow.style.display = "none";
+            final.style.display = "block";
+          }
+        }, slide.duration);
+      }
+      showSlide(i);
+    }
+
+    listenToMic();
+  </script>
+</body>
+</html>

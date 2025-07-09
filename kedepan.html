@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesan Buat Kedepannya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: #6a1b9a;
+      background: linear-gradient(270deg, #fce4ec, #e1bee7, #f3e5f5);
+      background-size: 600% 600%;
+      animation: gradientMove 20s ease infinite;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      padding: 40px 25px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .typewriter-text {
+      font-size: 1.4em;
+      line-height: 2em;
+      white-space: pre-wrap;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 600px) {
+      .typewriter-text {
+        font-size: 1.15em;
+        padding: 0 10px;
+      }
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 9999;
+      padding: 30px;
+      font-size: 1.3em;
+      flex-direction: column;
+    }
+
+    #overlay button {
+      margin-top: 25px;
+      padding: 12px 28px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffffff;
+      color: #d81b60;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    #overlay button:hover {
+      background-color: #f8bbd0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay Start -->
+  <div id="overlay">
+    <div>
+      <p>🎧 Pakai headset ya, dan pastikan sepi...</p>
+      <p>Tap untuk mulai dan dengarkan isi hatiku 💜</p>
+      <button onclick="startPage()">Mulai</button>
+    </div>
+  </div>
+  <!-- Overlay End -->
+
+  <div class="container">
+    <div id="typewriter" class="typewriter-text"></div>
+  </div>
+
+  <!-- Musik Latar -->
+  <audio id="bgmusic" src="laguku.mp3" preload="auto"></audio>
+
+  <script>
+    const text = [
+      "Aku nggak tau harus mulai dari mana, tapi aku cuma pengen cerita... pelan-pelan, jujur, dan apa adanya.",
+      "Kita udah sejauh ini, jalanin banyak hal... dari yang receh sampai yang paling nyakitin.",
+      "Dan jujur... aku kadang nggak percaya kalau kita bisa sejauh ini, walau jalannya gak selalu indah.",
+      "Aku sadar hubungan ini gak sempurna. Aku juga gak sempurna. Tapi aku selalu berusaha buat jadi yang terbaik sebisaku.",
+      "Mungkin kadang aku nyebelin. Kadang dingin. Kadang malah bikin kamu ngerasa sendiri, bahkan saat kita masih bareng.",
+      "Dan kalau hari ini... entah karena jarak, waktu, atau keadaan... kita udah bukan yang dulu lagi, aku cuma pengen kamu tau...",
+      "Perasaanku masih sama. Aku masih pengen kamu bahagia, bahkan kalau aku bukan alasan kebahagiaan itu lagi.",
+      "Aku gak tau masa depan kayak gimana. Kita gak bisa maksa waktu nurut sama maunya kita.",
+      "Tapi kalau suatu saat kita ketemu lagi, sebagai orang asing, sebagai kenangan, atau sebagai dua orang yang pernah saling sayang...",
+      "Aku pengen kamu inget, bahwa pernah ada seseorang yang bener-bener berdoa supaya kamu bahagia, walau dia gak bisa nemenin terus.",
+      "Aku gak pengen kita saling nyalahin. Karena gak semua yang pisah itu gagal.",
+      "Kadang... cinta bukan tentang siapa yang akhirnya tetap tinggal, tapi tentang siapa yang pernah bertahan paling lama, dan paling tulus.",
+      "Kalau nanti kamu sama orang lain... semoga dia bisa jagain kamu lebih baik dari aku.",
+      "Semoga dia bisa denger semua ceritamu tanpa bosen. Bisa tahan sama keras kepalamu. Bisa ngertiin kamu bahkan saat kamu gak ngomong apa-apa.",
+      "Dan kalau kamu suatu saat inget aku... jangan inget aku dari yang nyakitin, tapi dari yang pernah nyoba bahagiain kamu, walau caraku sering salah.",
+      "Terima kasih ya... udah jadi bagian dari hidup aku.",
+      "Udah pernah jadi tempat pulang paling hangat, bahkan saat aku lagi hancur-hancurnya.",
+      "Dan maaf, kalau semuanya harus selesai kayak gini...",
+      "Bukan karena aku gak sayang, tapi karena kadang... ngelepas itu bagian dari cara mencintai.",
+      "Terakhir, aku cuma bisa bilang...",
+      "Semoga hidupmu baik-baik aja. Semoga senyummu gak ilang. Semoga hatimu tetap lembut, walau udah banyak hal yang nyakitin.",
+      "Dan semoga suatu hari nanti, kamu bisa liat ke belakang dan bilang:",
+      "'Aku pernah disayang segitunya sama seseorang...'",
+      "Dan orang itu... adalah aku."
+    ];
+
+    const typewriter = document.getElementById("typewriter");
+    const music = document.getElementById("bgmusic");
+    let sentence = 0;
+    let charIndex = 0;
+
+    function startPage() {
+      document.getElementById("overlay").style.display = "none";
+      music.play();
+      type();
+    }
+
+    function type() {
+      if (sentence < text.length) {
+        if (charIndex < text[sentence].length) {
+          typewriter.textContent += text[sentence].charAt(charIndex);
+          charIndex++;
+          window.scrollTo(0, document.body.scrollHeight);
+          setTimeout(type, 60); // lebih lambat
+        } else {
+          typewriter.textContent += "\n\n";
+          sentence++;
+          charIndex = 0;
+          setTimeout(type, 1100); // jeda antar kalimat
+        }
+      }
+    }
+  </script>
+</body>
+</html>
