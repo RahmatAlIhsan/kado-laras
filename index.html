@@ -94,13 +94,16 @@
 </head>
 <body>
   <canvas class="confetti"></canvas>
-  <h1>Selamat Malem Laras 🎉</h1>
-  <div class="subtitle">Aku punya kado buat kamu!<br>Kadonya gamahal, ga bagus, cuman sederhana... dibuat pake hati hehe<br>Mau liat?</div>
-
-  <button onclick="yes()">Mauu deh 🎉</button>
-  <button onclick="no()">Nanti aja deh 😅</button>
-
-  <p id="response"></p>
+  <div id="countdown-wrapper" style="display:none;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffe6f0 0%,#fffde4 50%,#b3e5fc 100%);">
+    <div id="timer" style="font-size:3em;font-weight:bold;color:#d63384;background:rgba(255,255,255,0.7);padding:28px 38px;border-radius:24px;box-shadow:0 2px 8px #e91e6322;letter-spacing:2px;"></div>
+  </div>
+  <div id="main-content" style="display:none;">
+    <h1>Selamat Malem Laras 🎉</h1>
+    <div class="subtitle">Aku punya kado buat kamu!<br>Kadonya gamahal, ga bagus, cuman sederhana... dibuat pake hati hehe<br>Mau liat?</div>
+    <button onclick="yes()">Mauu deh 🎉</button>
+    <button onclick="no()">Nanti aja deh 😅</button>
+    <p id="response"></p>
+  </div>
 
   <script>
     function yes() {
@@ -162,6 +165,50 @@
       W = window.innerWidth; H = window.innerHeight;
       canvas.width = W; canvas.height = H;
     });
+
+    const countdownWrapper = document.getElementById('countdown-wrapper');
+    const mainContent = document.getElementById('main-content');
+    const timer = document.getElementById('timer');
+
+    function pad(n) { return n < 10 ? '0'+n : n; }
+
+    function showCountdown() {
+      countdownWrapper.style.display = 'flex';
+      mainContent.style.display = 'none';
+      function updateTimer() {
+        const now = new Date();
+        const target = new Date('2025-07-10T19:45:00+07:00');
+        let diff = target - now;
+        if (diff <= 0) {
+          countdownWrapper.style.display = 'none';
+          mainContent.style.display = 'block';
+          return;
+        }
+        let d = Math.floor(diff/(1000*60*60*24));
+        let h = Math.floor((diff/(1000*60*60))%24);
+        let m = Math.floor((diff/(1000*60))%60);
+        let s = Math.floor((diff/1000)%60);
+        let str = '';
+        if (d > 0) str += d+' hari ';
+        str += pad(h)+':'+pad(m)+':'+pad(s);
+        timer.textContent = str;
+        setTimeout(updateTimer, 1000);
+      }
+      updateTimer();
+    }
+    function showMain() {
+      countdownWrapper.style.display = 'none';
+      mainContent.style.display = 'block';
+    }
+    (function checkTime() {
+      const now = new Date();
+      const target = new Date('2025-07-10T19:45:00+07:00');
+      if (now < target) {
+        showCountdown();
+      } else {
+        showMain();
+      }
+    })();
   </script>
 </body>
 </html>

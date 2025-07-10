@@ -109,15 +109,15 @@
   <!-- Overlay Start -->
   <div id="overlay">
     <div>
-      <p>🎧 Pakai headset ya, dan pastikan sepi...</p>
-      <p>Tap untuk mulai dan dengarkan isi hatiku 💜</p>
+      <p>🎧 Pakai headset ya,....</p>
+      <p>Aku titip pesan ya lewat tulisan ini</p>
       <button onclick="startPage()">Mulai</button>
     </div>
   </div>
   <!-- Overlay End -->
 
   <div class="container">
-    <h1 class="judul">Pesan Buat Kedepannya</h1>
+    <h1 class="judul">Pesan Buat Hubungan Kita</h1>
     <div id="typewriter" class="typewriter-text"></div>
   </div>
 
@@ -130,7 +130,7 @@
       "Kita udah sejauh ini, jalanin banyak hal... dari yang receh sampai yang paling nyakitin.",
       "Dan jujur... aku kadang nggak percaya kalau kita bisa sejauh ini, walau jalannya gak selalu indah.",
       "Aku sadar hubungan ini gak sempurna. Aku juga gak sempurna. Tapi aku selalu berusaha buat jadi yang terbaik sebisaku.",
-      "Mungkin kadang aku nyebelin. Kadang dingin. Kadang malah bikin kamu ngerasa sendiri, bahkan saat kita masih bareng.",
+      "Mungkin kadang aku nyebelin. Kadang Suka Marahin Kamu. Kadang malah bikin kamu ngerasa sedih, maafin aku ya laras :)'.",
       "Dan kalau hari ini... entah karena jarak, waktu, atau keadaan... kita udah bukan yang dulu lagi, aku cuma pengen kamu tau...",
       "Perasaanku masih sama. Aku masih pengen kamu bahagia, bahkan kalau aku bukan alasan kebahagiaan itu lagi.",
       "Aku gak tau masa depan kayak gimana. Kita gak bisa maksa waktu nurut sama maunya kita.",
@@ -149,7 +149,8 @@
       "Semoga hidupmu baik-baik aja. Semoga senyummu gak ilang. Semoga hatimu tetap lembut, walau udah banyak hal yang nyakitin.",
       "Dan semoga suatu hari nanti, kamu bisa liat ke belakang dan bilang:",
       "'Aku pernah disayang segitunya sama seseorang...'",
-      "Dan orang itu... adalah aku."
+      "Dan orang itu... adalah aku.",
+      "\nBandar Lampung 11-07-2025\nRahmat Al Ihsan"
     ];
 
     const typewriter = document.getElementById("typewriter");
@@ -162,6 +163,12 @@
       music.play();
       type();
     }
+
+    // Musik akan otomatis play lagi jika selesai
+    music.addEventListener('ended', function() {
+      music.currentTime = 0;
+      music.play();
+    });
 
     function type() {
       if (sentence < text.length) {
