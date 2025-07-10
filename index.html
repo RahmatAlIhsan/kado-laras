@@ -177,7 +177,7 @@
       mainContent.style.display = 'none';
       function updateTimer() {
         const now = new Date();
-        const target = new Date('2025-07-10T19:45:00+07:00');
+        const target = new Date('2025-07-11T00:00:00+07:00');
         let diff = target - now;
         if (diff <= 0) {
           countdownWrapper.style.display = 'none';
@@ -202,7 +202,7 @@
     }
     (function checkTime() {
       const now = new Date();
-      const target = new Date('2025-07-10T19:45:00+07:00');
+      const target = new Date('2025-07-11T00:00:00+07:00');
       if (now < target) {
         showCountdown();
       } else {
